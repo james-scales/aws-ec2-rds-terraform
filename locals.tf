@@ -5,17 +5,20 @@ locals {
   terraform_tag = "made in Terraform"
 }
 
+##########################################
+### Locals for Network Resources
+##########################################
+##### Map resource defined in variables.tf and subnets defined in tfvars file
+## subnets = {
+#    public-a = {
+#    cidr_block        = "10.10.0.0/24"
+#    availability_zone = "us-east-1a"
+#    type              = "public"
+#  }
 
-##### Creating locals block to pull public & private subnets for route table resource
 
-### Loop through all subnets created by aws_subnet.that, and 
-### collect the ids of each subnet only if its type is "public" & "private".
-
-##### Creating locals block to pull public subnets for NAT gateway resource
-
-### Loop through all subnets created by aws_subnet.that, and 
+### Iterate through all subnets created by aws_subnet.that, and 
 ### collect the ids of each subnet only if its type is "public".
-
 locals {
   public_subnet_ids = [
     for k, s in aws_subnet.dev :
@@ -23,6 +26,9 @@ locals {
   ]
 }
 
+# Iterate through all subnets created by aws_subnet.that, and 
+# collect the ids of each subnet only if its type is "public" & "private".
+# Store in a new map where k is key and s is subnet object.
 locals {
   public_subnets = {
     for k, s in aws_subnet.dev : k => s
@@ -34,5 +40,3 @@ locals {
   }
 }
 
-# Loops over each private subnet key and creates a route table association
-# Toset used to convert a list into a set which is useful for for_each
