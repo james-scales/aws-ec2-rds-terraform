@@ -35,7 +35,7 @@ resource "aws_iam_role_policy" "compute2secrets_policy" {
         "Sid" : "ReadSpecificSecret",
         "Effect" : "Allow",
         "Action" : ["secretsmanager:GetSecretValue"],
-        "Resource" : "arn:aws:secretsmanager:sa-east-1:824826126615:secret:classarm7/rds/mysql*"
+        "Resource" : "arn:aws:secretsmanager:${var.region}:${var.account_id}:secret:${var.secret_name}*"
       },
     ]
   })

@@ -6,6 +6,10 @@ variable "region" {
   description = "Default AWS region"
   type        = string
 }
+variable "account_id" {
+  description = "AWS Account ID"
+  type        = string
+}
 
 ################################
 #### VPC
@@ -155,5 +159,13 @@ variable "sns_endpoint_protocol" {
 }
 variable "sns_sub_endpoint" {
   description = "SNS Topic Subscription Endpoint"
+  type        = string
+}
+
+################################
+#### Secrets Manager
+################################
+variable "secret_name" {
+  description = "Secrets Manager Secret Name"
   type        = string
 }
